@@ -26,7 +26,7 @@ function MainList({ category }) {
       async function () {
         try {
           const res = await fetch(
-            `https://dummyjson.com/products/category/${category}?limit=10`
+            `https://dummyjson.com/products/category/${category}`
           );
           const data = await res.json();
           setData(data);
