@@ -22,18 +22,20 @@ const H1 = styled.h1`
 function MainList({ category }) {
   const [data, setData] = useState();
   useEffect(
-    () =>
-      async function () {
+    function () {
+      async function render() {
         try {
           const res = await fetch(
-            `https://dummyjson.com/products/category/${category}`
+            `https://dummyjson.com/products/category/${category}?limit=10`
           );
           const data = await res.json();
           setData(data);
         } catch (error) {
           console.error("Error fetching data:", error);
         }
-      },
+      }
+      render();
+    },
     [category]
   );
 
