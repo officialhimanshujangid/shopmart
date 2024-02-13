@@ -1,0 +1,13 @@
+.container {
+    width: 100%;
+
+}
+
+.container img {
+    width: 90%;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5), 10px 10px 10px rgba(7, 7, 7, 0.5);
+    margin: auto;
+    height: 280px;
+    border-radius: 5px;
+    /* padding: 0px 5px; */
+}
