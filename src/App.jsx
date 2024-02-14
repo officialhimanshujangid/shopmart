@@ -35,8 +35,8 @@ function App() {
                 </ProtectedRoute>
               }
             >
-              <Route index element={<Navigate replace to="dashboard" />} />
-              <Route path="dashboard" element={<Dashboard />} />
+              {/* <Route index element={<Navigate replace to="/" />} /> */}
+              <Route path="/" element={<Dashboard />} />
               <Route path="productList" element={<ProductList />} />
               <Route path="searchresults" element={<ProductListSearch />} />
               <Route path="producInfo/:id" element={<ProductInfo />} />

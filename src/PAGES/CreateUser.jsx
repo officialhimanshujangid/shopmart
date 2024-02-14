@@ -2,6 +2,8 @@ import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import Logo from "../COMPONENT/Logo/Logo";
 import { useNavigate } from "react-router-dom";
+import { useSignup } from "../authentication/useSignup";
+
 const Page = styled.div`
   font-family: "Mulish", sans-serif;
   padding: 1.5rem 2rem;
@@ -65,12 +67,18 @@ const P = styled.p`
 
 function CreateUser() {
   const { register, formState, handleSubmit, getValues, reset } = useForm();
+  const { signup } = useSignup();
   const { errors } = formState;
   const navigate = useNavigate();
-  function onSubmit() {
-    navigate("/login");
-    console.log("click");
+  function onSubmit({ name, email, password }) {
+    signup(
+      { name, email, password },
+      {
+        onSettled: () => reset(),
+      }
+    );
     reset();
+    navigate("/login");
   }
   return (
     <Page className="text-2xl">
@@ -103,21 +111,6 @@ function CreateUser() {
               pattern: {
                 value: /\S+@\S+\.\S+/,
                 message: "Please provide a valid email address",
-              },
-            })}
-          />
-        </FormRow>
-
-        <FormRow error={errors?.phone?.message}>
-          <Label htmlFor="phone">Phone</Label>
-          <Input
-            type="tel"
-            id="phone"
-            {...register("phone", {
-              required: "This field is required",
-              pattern: {
-                value: /^\d+$/,
-                message: "Please provide a valid phone number",
               },
             })}
           />

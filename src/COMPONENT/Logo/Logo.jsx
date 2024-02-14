@@ -5,7 +5,7 @@ import styles from "./Logo.module.css";
 import { FaShopify } from "react-icons/fa";
 function Logo({ size, padding }) {
   return (
-    <Link to="/dashboard">
+    <Link to="/">
       <div style={{ fontSize: size, padding: padding }} className={styles.logo}>
         <span>{<FaShopify />}</span>
         <span>ShopMart</span>

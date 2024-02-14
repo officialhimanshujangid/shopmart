@@ -8,8 +8,8 @@ const Footer = () => {
       <div className={styles.container}>
         <div className={`${styles.section} py-1`}>
           <h3>Contact Us</h3>
-          <p>Email: info@example.com</p>
-          <p>Phone: +123 456 7890</p>
+          <p>Email: officialhimanshujangid@gmail.com</p>
+          <p>Phone: 7073083470</p>
         </div>
         <div className={`${styles.section} py-1`}>
           <h3>Quick Links :</h3>
