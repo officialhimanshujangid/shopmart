@@ -26,15 +26,21 @@ const Img = styled.img`
 `;
 const P = styled.p`
   font-weight: 500;
+  font-size: large;
   text-transform: capitalize;
 `;
 const P2 = styled.p`
   font-weight: 500;
-  font-size: large;
+  margin-top: 10px;
   padding-top: 10px;
 `;
-function PriceBreakup({ data }) {
+const P3 = styled.p`
+  font-size: xx-large;
+  font-weight: 500;
 
+  text-transform: capitalize;
+`;
+function PriceBreakup2({ data }) {
   if (!data) return;
   const sellingPrice = data.price * 83;
   const regularPrice = (
@@ -54,8 +60,7 @@ function PriceBreakup({ data }) {
   return (
     <Div>
       <DivImg>
-        <Img src={data.thumbnail} alt="" />
-        <P>{data.title}</P>
+        <P3>{data.title}</P3>
       </DivImg>
       <P2>Price Breakup :</P2>
       <Div2>
@@ -71,4 +76,4 @@ function PriceBreakup({ data }) {
   );
 }
 
-export default PriceBreakup;
+export default PriceBreakup2;

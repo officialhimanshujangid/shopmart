@@ -1,6 +1,8 @@
+/* eslint-disable react/prop-types */
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { useCartId } from "../Context";
 
 const Form = styled.form`
   text-transform: capitalize;
@@ -45,14 +47,22 @@ const Button = styled.button`
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5), 10px 10px 10px rgba(7, 7, 7, 0.5);
   background-color: #52089c;
 `;
-function CheckoutForm() {
+function CheckoutForm({ data2, id }) {
   const { register, formState, handleSubmit, reset } = useForm();
   const navigate = useNavigate();
   const { errors } = formState;
+  const { confirmOrderdetails } = useCartId();
+
   function onSubmit(data) {
-    console.log(data);
-    navigate("/");
+    const stringfyAddress = JSON.stringify(data);
+    const order = {
+      id: id,
+      data: data2,
+      address: stringfyAddress,
+    };
+    confirmOrderdetails(order);
     reset();
+    navigate("/orderconfirmed");
   }
   return (
     <Div>
@@ -75,9 +85,7 @@ function CheckoutForm() {
             <Label htmlFor="middleName">middle name</Label>
             <Input
               error={errors?.name?.message}
-              {...register("middleName", {
-                required: "This field is required",
-              })}
+              {...register("middleName")}
               type="text"
               id="middleName"
             />
@@ -96,13 +104,13 @@ function CheckoutForm() {
           </Div2>
         </FormRow>
         <Div2>
-          <Label htmlFor="address1">Address 1</Label>
+          <Label htmlFor="phone">Phone number</Label>
           <Input
             error={errors?.name?.message}
-            {...register("address1", {
+            {...register("phone", {
               required: "This field is required",
             })}
-            type="input"
+            type="number"
             id="address1"
           />
         </Div2>
@@ -118,7 +126,7 @@ function CheckoutForm() {
           />
         </Div2>
         <Div2>
-          <Label htmlFor="address1">Address 1</Label>
+          <Label htmlFor="address1">Address 2</Label>
           <Input
             error={errors?.name?.message}
             {...register("address3", {
@@ -131,15 +139,34 @@ function CheckoutForm() {
         <FormRow>
           <Div2 className="col-md-6">
             <Label htmlFor="inputCity">City</Label>
-            <Input type="text" id="inputCity" />
+            <Input
+              {...register("city", {
+                required: "This field is required",
+              })}
+              type="text"
+              id="inputCity"
+            />
           </Div2>
           <Div2 className="col-md-4">
             <Label htmlFor="inputState">State</Label>
-            <Input required type="text" id="firstName" />
+            <Input
+              {...register("state", {
+                required: "This field is required",
+              })}
+              required
+              type="text"
+              id="firstName"
+            />
           </Div2>
           <Div2 className="col-md-2">
-            <Label htmlFor="inputZip">Zip</Label>
-            <Input type="text" id="inputZip" />
+            <Label htmlFor="inputZip">Zip Code</Label>
+            <Input
+              {...register("Zip", {
+                required: "This field is required",
+              })}
+              type="text"
+              id="inputZip"
+            />
           </Div2>
         </FormRow>
 

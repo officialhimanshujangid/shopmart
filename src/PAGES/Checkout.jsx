@@ -27,7 +27,7 @@ function Checkout() {
   const [data, setData] = useState();
 
   const { id } = useParams();
-  console.log(id);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -41,10 +41,12 @@ function Checkout() {
 
     fetchData();
   }, [id]);
+  if (!data) return;
+
   return (
     <Div>
       <CheckoutData>
-        <CheckoutForm />
+        <CheckoutForm data2={data} id={id} />
       </CheckoutData>
       <Price>
         <PriceBreakup data={data} />
