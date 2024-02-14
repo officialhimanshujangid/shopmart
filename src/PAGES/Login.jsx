@@ -3,6 +3,7 @@ import Logo from "../COMPONENT/Logo/Logo";
 import { useNavigate } from "react-router-dom";
 
 import { useForm } from "react-hook-form";
+import { useLogin } from "../authentication/useLogin";
 const Page = styled.div`
   font-family: "Mulish", sans-serif;
   min-height: 100vh;
@@ -64,13 +65,22 @@ const P = styled.p`
 `;
 
 function Login() {
+  const { login } = useLogin();
   const navigate = useNavigate();
   const { register, formState, handleSubmit, reset } = useForm();
   const { errors } = formState;
   function onSubmit({ email, password }) {
-    console.log({ email, password });
-    navigate("/");
-    reset();
+    if (!email || !password) return;
+    login(
+      { email, password },
+
+      {
+        onSettled: () => {
+          reset();
+          console.log("logged");
+        },
+      }
+    );
   }
 
   return (

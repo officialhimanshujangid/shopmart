@@ -86,6 +86,7 @@ function CreateUser() {
           <Input
             type="text"
             id="name"
+            error={errors?.name?.message}
             {...register("name", {
               required: "This field is required",
             })}

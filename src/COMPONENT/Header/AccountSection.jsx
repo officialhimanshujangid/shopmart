@@ -1,8 +1,11 @@
-import { MdAccountCircle } from "react-icons/md";
-import { IoSettingsSharp } from "react-icons/io5";
+import { IoIosLogOut } from "react-icons/io";
+import { TbPasswordFingerprint } from "react-icons/tb";
 import { FaShoppingCart } from "react-icons/fa";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useCartId } from "../../Context";
+import { useLogout } from "../../authentication/useLogout";
+import Spinner from "../Spinner";
 const Ul = styled.ul``;
 const Li = styled.li`
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
@@ -13,21 +16,24 @@ const Li = styled.li`
 `;
 
 function AccountSection() {
+  const { currentId } = useCartId();
+  const { logout, isLoading } = useLogout();
+  if (isLoading) return <Spinner />;
   return (
     <nav>
       <Ul>
         <Li>
-          <Link to="/login">
-            <MdAccountCircle className="w-7 h-7" />
+          <Link onClick={logout}>
+            <IoIosLogOut className="w-7 h-7" />
           </Link>
         </Li>
         <Li>
-          <Link to="/createuser">
-            <IoSettingsSharp className="w-7 h-7" />
+          <Link to="/updateAccount">
+            <TbPasswordFingerprint className="w-7 h-7" />
           </Link>
         </Li>
         <Li>
-          <Link>
+          <Link to={`/checkout/${currentId}`}>
             <FaShoppingCart className="w-7 h-7" />
           </Link>
         </Li>

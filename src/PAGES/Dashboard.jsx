@@ -13,7 +13,7 @@ function Dashboard() {
       .then((res) => res.json())
       .then((json) => setData(json.slice(10)));
   }, []);
-  console.log(data);
+
   return (
     <Div>
       <Silder />

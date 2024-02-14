@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 
 import styled from "styled-components";
 import ItemBox from "../COMPONENT/Main/itemBoxList";
+import Spinner from "../COMPONENT/Spinner";
 const Div = styled.div`
   display: flex;
   flex-direction: column;
@@ -22,19 +23,23 @@ function ProductList() {
   const [searchParams] = useSearchParams();
   const category = searchParams.get("category");
   const [data, setData] = useState();
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
         const res = await fetch(`https://dummyjson.com/products?limit=100`);
         const dat = await res.json();
         setData(dat);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
-  }, [category]);
+  }, []);
+  if (loading) return <Spinner />;
   if (!data) return;
   const filtered = data.products.filter((item) => item.category === category);
   const other = data.products.filter((item) => item.category !== category);

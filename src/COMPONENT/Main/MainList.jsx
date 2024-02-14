@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import Row from "../Row";
 import ItemBox from "./itemBox";
 import styled from "styled-components";
+import Spinner from "../Spinner";
 const Div = styled.div`
   /* background-color: rgb(255, 255, 255, 0.3); */
 
@@ -19,17 +20,20 @@ const H1 = styled.h1`
   text-align: center;
   text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5), 10px 10px 10px rgba(7, 7, 7, 0.5);
 `;
-function MainList({ category }) {
+const MainList = memo(function MainList({ category }) {
   const [data, setData] = useState();
+  const [loading, setLoading] = useState(false);
   useEffect(
     function () {
       async function render() {
+        setLoading(true);
         try {
           const res = await fetch(
             `https://dummyjson.com/products/category/${category}?limit=10`
           );
           const data = await res.json();
           setData(data);
+          setLoading(false);
         } catch (error) {
           console.error("Error fetching data:", error);
         }
@@ -38,7 +42,7 @@ function MainList({ category }) {
     },
     [category]
   );
-
+  if (loading) return <Spinner />;
   if (data === undefined) return;
   const list = data.products;
   return (
@@ -51,6 +55,6 @@ function MainList({ category }) {
       </Row>
     </Div>
   );
-}
+});
 
 export default MainList;
